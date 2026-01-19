@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-using namespace investment;
+using namespace std;
 
 int main() {
     int choice;
@@ -26,10 +26,8 @@ int main() {
     cout << "Enter number of years: ";
     cin >> years;
     
-    // Convert percentage to decimal
     rate = rate / 100;
     
-    // Calculate final amount using compound interest
     finalAmount = principal;
     for(int i = 0; i < years; i++) {
         finalAmount = finalAmount * (1 + rate);
