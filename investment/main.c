@@ -8,9 +8,9 @@ int main() {
     
     cout << "=== Investment Return Calculator ===" << endl;
     cout << "Select investment type:" << endl;
-    cout << "1. Savings Account" << endl;
-    cout << "2. Stocks" << endl;
-    cout << "3. Bonds" << endl;
+    cout << "1. Savings Account (Low Risk)" << endl;
+    cout << "2. Stocks (High Risk)" << endl;
+    cout << "3. Bonds (Moderate Risk)" << endl;
     cout << "Enter your choice (1-3): ";
     cin >> choice;
     
