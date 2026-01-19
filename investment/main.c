@@ -1,125 +1,58 @@
 #include <iostream>
-#include <cmath>
-using namespace std;
+#include <iomanip>
+using namespace investment;
 
 int main() {
-    // Променливи за програмата
-    int izbor;
-    double pari, lihva, godini, kraino;
+    int choice;
+    double principal, rate, years, finalAmount, profit;
     
-    printf("Kalkulator za investicii\n\n");
+    cout << "=== Investment Return Calculator ===" << endl;
+    cout << "Select investment type:" << endl;
+    cout << "1. Savings Account" << endl;
+    cout << "2. Stocks" << endl;
+    cout << "3. Bonds" << endl;
+    cout << "Enter your choice (1-3): ";
+    cin >> choice;
     
-    // Основен цикъл
-    while(true) {
-        // Меню
-        printf("1. Prosta lihva\n");
-        printf("2. Slozna lihva\n");
-        printf("3. Akcii\n");
-        printf("4. Mesecen depozit\n");
-        printf("5. Izlaz\n");
-        printf("Izberi: ");
-        scanf("%d", &izbor);
-        
-        // Проверка какво е избрано
-        switch(izbor) {
-            case 1:
-                // Проста лихва
-                printf("Vavedi pari: ");
-                scanf("%lf", &pari);
-                printf("Vavedi lihva v procenti: ");
-                scanf("%lf", &lihva);
-                printf("Vavedi godini: ");
-                scanf("%lf", &godini);
-                
-                // Пресмятане
-                kraino = pari + (pari * lihva * godini / 100);
-                
-                // Показване на резултат
-                printf("Nachalna suma: %.2f lv\n", pari);
-                printf("Kraina suma: %.2f lv\n", kraino);
-                printf("Pechalba: %.2f lv\n\n", kraino - pari);
-                break;
-                
-            case 2: {
-                // Сложна лихва
-                int chestota;
-                printf("Vavedi pari: ");
-                scanf("%lf", &pari);
-                printf("Vavedi lihva v procenti: ");
-                scanf("%lf", &lihva);
-                printf("Vavedi godini: ");
-                scanf("%lf", &godini);
-                printf("Kolko puti godishno (1, 4 ili 12): ");
-                scanf("%d", &chestota);
-                
-                // Пресмятане
-                kraino = pari * pow(1 + lihva/(100*chestota), chestota*godini);
-                
-                // Показване на резултат
-                printf("Nachalna suma: %.2f lv\n", pari);
-                printf("Kraina suma: %.2f lv\n", kraino);
-                printf("Pechalba: %.2f lv\n\n", kraino - pari);
-                break;
-            }
-                
-            case 3: {
-                // Акции
-                double akcii, kupuvane, prodavane, dividend;
-                printf("Broi akcii: ");
-                scanf("%lf", &akcii);
-                printf("Cena pri kupuvane: ");
-                scanf("%lf", &kupuvane);
-                printf("Cena pri prodavane: ");
-                scanf("%lf", &prodavane);
-                printf("Dividend v procenti: ");
-                scanf("%lf", &dividend);
-                printf("Kolko godini: ");
-                scanf("%lf", &godini);
-                
-                // Пресмятане
-                pari = akcii * kupuvane;
-                kraino = akcii * prodavane + pari * (dividend/100) * godini;
-                
-                // Показване на резултат
-                printf("Investirani pari: %.2f lv\n", pari);
-                printf("Kraina stoinost: %.2f lv\n", kraino);
-                printf("Pechalba: %.2f lv\n\n", kraino - pari);
-                break;
-            }
-                
-            case 4: {
-                // Месечен депозит
-                double mesecno;
-                printf("Mesechna vnoska: ");
-                scanf("%lf", &mesecno);
-                printf("Godishna lihva v procenti: ");
-                scanf("%lf", &lihva);
-                printf("Kolko godini: ");
-                scanf("%lf", &godini);
-                
-                // Пресмятане
-                double mesechna_lihva = lihva / 1200;
-                int meseci = godini * 12;
-                kraino = mesecno * ((pow(1 + mesechna_lihva, meseci) - 1) / mesechna_lihva);
-                pari = mesecno * meseci;
-                
-                // Показване на резултат
-                printf("Vneseni pari: %.2f lv\n", pari);
-                printf("Kraina suma: %.2f lv\n", kraino);
-                printf("Pechalba: %.2f lv\n\n", kraino - pari);
-                break;
-            }
-                
-            case 5:
-                // Изход
-                printf("Dovizdane!\n");
-                return 0;
-                
-            default:
-                // Грешка
-                printf("Greshka! Probvai pak.\n\n");
-        }
+    while(choice < 1 || choice > 3) {
+        cout << "Invalid choice! Please enter 1, 2, or 3: ";
+        cin >> choice;
     }
+    
+    cout << "Enter initial investment amount: $";
+    cin >> principal;
+    cout << "Enter annual return rate (%): ";
+    cin >> rate;
+    cout << "Enter number of years: ";
+    cin >> years;
+    
+    // Convert percentage to decimal
+    rate = rate / 100;
+    
+    // Calculate final amount using compound interest
+    finalAmount = principal;
+    for(int i = 0; i < years; i++) {
+        finalAmount = finalAmount * (1 + rate);
+    }
+    
+    profit = finalAmount - principal;
+    
+    cout << fixed << setprecision(2);
+    cout << "\n=== Results ===" << endl;
+    
+    if(choice == 1) {
+        cout << "Investment Type: Savings Account" << endl;
+    } else if(choice == 2) {
+        cout << "Investment Type: Stocks" << endl;
+    } else if(choice == 3) {
+        cout << "Investment Type: Bonds" << endl;
+    }
+    
+    cout << "Initial Investment: $" << principal << endl;
+    cout << "Annual Return Rate: " << (rate * 100) << "%" << endl;
+    cout << "Investment Period: " << years << " years" << endl;
+    cout << "Final Amount: $" << finalAmount << endl;
+    cout << "Total Profit: $" << profit << endl;
     
     return 0;
 }
